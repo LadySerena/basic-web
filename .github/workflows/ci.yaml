@@ -35,9 +35,9 @@ jobs:
           username: oauth2accesstoken
           password: ${{ steps.auth.outputs.access_token }}
       - name: Build and push
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/')
         uses: docker/build-push-action@v2
         with:
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: telvanni-platform/hello-world-service:${{env.GITHUB_REF_NAME}}
+          tags: us.gcr.io/telvanni-platform/hello-world-service:${{env.GITHUB_REF_NAME}}
