@@ -1,5 +1,4 @@
 use opentelemetry::metrics::Counter;
-
 use opentelemetry::{global, Key};
 use opentelemetry_prometheus::PrometheusExporter;
 use prometheus::{Encoder, TextEncoder};
@@ -51,6 +50,7 @@ impl<State: Clone + Send + Sync + 'static> Middleware<State> for RequestCountMid
         } else {
             let labels = vec![ROUTE_KEY.string(request.url().path().to_string())];
             self.request_count.add(1, &labels);
+            println!("request counted");
             let res = next.run(request).await;
             Ok(res)
         }
